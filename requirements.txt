@@ -1,0 +1,53 @@
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+numpy>=1.24.0
+scipy>=1.10.0
+pillow>=9.5.0
+opencv-python>=4.7.0
+
+# Deep Learning frameworks
+transformers>=4.30.0
+timm>=0.9.0
+einops>=0.6.0
+
+# Computer Vision
+albumentations>=1.3.0
+scikit-image>=0.20.0
+
+# Data handling
+pandas>=2.0.0
+h5py>=3.8.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+plotly>=5.14.0
+wandb>=0.15.0
+
+# Model optimization
+onnx>=1.14.0
+onnxruntime>=1.15.0
+
+# Spiking Neural Networks
+snnTorch>=0.7.0
+
+# Demo interfaces
+gradio>=3.35.0
+streamlit>=1.24.0
+
+# Development tools
+pytest>=7.3.0
+pytest-cov>=4.1.0
+black>=23.3.0
+
+# Configuration
+pyyaml>=6.0
+
+# Utilities
+tqdm>=4.65.0
+rich>=13.4.0
+
+# Jupyter
+jupyter>=1.0.0
+ipykernel>=6.23.0
