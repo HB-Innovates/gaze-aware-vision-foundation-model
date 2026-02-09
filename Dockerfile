@@ -1,30 +1,57 @@
-FROM pytorch/pytorch:2.0.1-cuda11.7-cudnn8-runtime
+# Multi-stage Dockerfile for efficient deployment
+# Stage 1: Builder
+FROM python:3.10-slim as builder
 
-# Set working directory
-WORKDIR /app
+WORKDIR /build
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    cmake \
     git \
-    libglib2.0-0 \
-    libsm6 \
-    libxext6 \
-    libxrender-dev \
+    libopencv-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+# Stage 2: Runtime
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y \
+    libopencv-core4.5 \
+    libopencv-imgproc4.5 \
+    libopencv-highgui4.5 \
     libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements first for better caching
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Copy Python packages from builder
+COPY --from=builder /root/.local /root/.local
+ENV PATH=/root/.local/bin:$PATH
 
-# Copy project files
-COPY . .
+# Copy application code
+COPY models/ models/
+COPY data/ data/
+COPY experiments/ experiments/
+COPY notebooks/ notebooks/
+COPY tests/ tests/
+COPY *.py ./
+COPY README.md .
 
-# Install package in development mode
-RUN pip install -e .
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app:$PYTHONPATH
 
-# Expose ports
-EXPOSE 7860 8501
+# Create non-root user for security
+RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
+USER appuser
 
-# Default command (run Gradio demo)
-CMD ["python", "demo/gradio_demo.py"]
+# Expose ports for potential API deployment
+EXPOSE 8000
+
+# Default command
+CMD ["python", "demo.py", "--mode", "synthetic"]

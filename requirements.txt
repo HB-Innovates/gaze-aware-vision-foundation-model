@@ -1,53 +1,60 @@
-# Core dependencies
+# Core Deep Learning
 torch>=2.0.0
 torchvision>=0.15.0
-numpy>=1.24.0
-scipy>=1.10.0
-pillow>=9.5.0
-opencv-python>=4.7.0
-
-# Deep Learning frameworks
 transformers>=4.30.0
-timm>=0.9.0
-einops>=0.6.0
 
 # Computer Vision
-albumentations>=1.3.0
-scikit-image>=0.20.0
+opencv-python>=4.8.0
+Pillow>=9.5.0
 
-# Data handling
+# Data Processing
+numpy>=1.24.0
 pandas>=2.0.0
-h5py>=3.8.0
+scipy>=1.10.0
 
 # Visualization
 matplotlib>=3.7.0
 seaborn>=0.12.0
 plotly>=5.14.0
-wandb>=0.15.0
 
-# Model optimization
+# Model Optimization
 onnx>=1.14.0
 onnxruntime>=1.15.0
+# tensorrt>=8.6.0  # Uncomment for NVIDIA GPUs
 
 # Spiking Neural Networks
-snnTorch>=0.7.0
-
-# Demo interfaces
-gradio>=3.35.0
-streamlit>=1.24.0
-
-# Development tools
-pytest>=7.3.0
-pytest-cov>=4.1.0
-black>=23.3.0
-
-# Configuration
-pyyaml>=6.0
+snntorch>=0.7.0
 
 # Utilities
 tqdm>=4.65.0
-rich>=13.4.0
+pyyaml>=6.0
+click>=8.1.0
+coloredlogs>=15.0
 
-# Jupyter
-jupyter>=1.0.0
-ipykernel>=6.23.0
+# MLOps
+wandb>=0.15.0  # Weights & Biases for experiment tracking
+mlflow>=2.3.0  # Optional: Alternative tracking
+
+# Testing
+pytest>=7.3.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+
+# Code Quality
+black>=23.3.0
+flake8>=6.0.0
+isort>=5.12.0
+mypy>=1.3.0
+
+# Jupyter (for experiments)
+jupyterlab>=4.0.0
+ipywidgets>=8.0.0
+
+# Optional: For production deployment
+# fastapi>=0.95.0
+# uvicorn>=0.22.0
+# gunicorn>=20.1.0
+
+# Documentation
+sphinx>=6.2.0
+sphinx-rtd-theme>=1.2.0
